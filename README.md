@@ -1,0 +1,156 @@
+<p align="center">
+    <a href="https://cloud.ibm.com">
+        <img src="https://landscape.cncf.io/logos/ibm-cloud-kcsp.svg" height="100" alt="IBM Cloud">
+    </a>
+</p>
+
+<p align="center">
+    <a href="https://cloud.ibm.com">
+    <img src="https://img.shields.io/badge/IBM%20Cloud-powered-blue.svg" alt="IBM Cloud">
+    </a>
+    <a href="https://www.ibm.com/developerworks/learn/java/">
+    <img src="https://img.shields.io/badge/platform-java-lightgrey.svg?style=flat" alt="platform">
+    </a>
+    <img src="https://img.shields.io/badge/license-Apache2-blue.svg?style=flat" alt="Apache 2">
+</p>
+
+
+# Quarkus microservice
+
+In this sample application, you will create a basic Java web application using [Quarkus](https://quarkus.io/). This provides a starting point for creating Java microservice applications running as a native application on GraalVM. It contains application code with a simple `/hello` endpoint, a swagger UI and a health check at `/health`.
+
+## Steps
+
+You can [deploy this application to IBM Cloud](https://cloud.ibm.com) or [build it locally](#building-locally) by cloning this repo first. Once your app is live, you can access the `/hello` endpoint to build out your cloud native application.
+
+### Deploying 
+
+After you have created a new git repo from this git template, remember to rename the project.
+Edit the `pom.xml` and change the `artifactId` from the default name to the name you used to create the template.
+
+Make sure you are logged into the IBM Cloud using the IBM Cloud CLI and have access 
+to you development cluster. If you are using OpenShift make sure you have logged into the OpenShift CLI on the command line.
+
+Install the IBM Garage for Cloud CLI.
+```$bash
+npm i -g @garage-catalyst/ibm-garage-cloud-cli
+```
+
+Use the IBM Garage for Cloud CLI to register the GIT Repo 
+```$bash
+igc pipeline -n dev --tekton --pipeline ibm-java-maven 
+```
+
+See the **Deploy an app** guide in the [IBM Cloud-Native toolkit](https://cloudnativetoolkit.dev/) for details.
+
+### Building Locally
+
+To get started building this application locally you need to install
+* [Maven](https://maven.apache.org/install.html)
+* JDK 11+
+
+Use the following command to build and run an application:
+
+`./mvnw quarkus:dev`
+
+## More Details
+
+For more details on how to use this Starter Kit Template please review the [IBM Garage for Cloud Cloud-Native Toolkit Guide](https://cloudnativetoolkit.dev/)
+
+### Creating this Starter Kit Template
+
+This Starter Kit Template is based on Quarkus [Bootstrapping the project](https://quarkus.io/guides/getting-started#bootstrapping-the-project).
+
+It was bootstrapped with the command:
+
+```$bash
+mvn io.quarkus:quarkus-maven-plugin:1.11.0.Final:create \
+    -DprojectGroupId=com.ibm \
+    -DprojectArtifactId=template-quarkus \
+    -DclassName="com.ibm.GreetingResource" \
+    -Dpath="/hello" \
+    -Dextensions="smallrye-openapi, quarkus-resteasy-jsonb"
+```
+
+#### OpenAPI and Swagger
+OpenAPI and Swagger support was added automatically with the `extensions="smallrye-openapi"` above.
+* Once your application is started, you can make a request to the `/q/openapi` endpoint to get the API Documentation.
+* The Swagger UI can be located at `/q/swagger-ui`
+* For more information on OpenAPI and Swagger support click [here](https://quarkus.io/guides/openapi-swaggerui)
+
+#### Cloud-Native Toolkit
+
+To add support for the [Cloud-Native Toolkit](https://cloudnativetoolkit.dev/) CI/CD pipelines 
+
+1. the `Docker` file was added based on [this guide](https://quarkus.io/guides/building-native-image#using-a-multi-stage-docker-build).
+2. The `.dockerignore` file was updated to remove the `*` line.
+```$bash
+# *
+!target/*-runner
+!target/*-runner.jar
+!target/lib/*
+!target/quarkus-app/*
+```
+3. The helm charts in the `chart` folder were added. 
+
+#### Health check
+Create the `/health` health check endpoint
+1. Add the `/health` health check endpoint with the `src/main/java/com/ibm/HealthResource.java` file.
+2. Add the health check test with the `src/test/java/com/ibm/HealthResourceTest.java` file.
+
+#### SonarQube support
+
+Support for running the [SonarQube CLI](https://docs.sonarqube.org/latest/analysis/scan/sonarscanner/) was added.  
+
+1. The `sonar-project.properties` file was added. The values in this file should be updated to match your project.
+
+2. The `pom.xml` file was modified to enable code coverage using JaCoCo based on [this guide](https://quarkus.io/guides/tests-with-coverage).  Changes to the file are:
+    * Add `jacoco.version` property
+    ```$bash
+    <properties>
+        ...
+        <jacoco.version>0.8.6</jacoco.version>
+    </properties>
+    ```
+    * Add the `jacoco-maven-plugin` plugin
+    ```$bash
+        </plugins>
+        ....
+        <plugin>
+            <groupId>org.jacoco</groupId>
+            <artifactId>jacoco-maven-plugin</artifactId>
+            <version>${jacoco.version}</version>
+            <executions>
+                <execution>
+                    <id>default-prepare-agent</id>
+                    <goals>
+                        <goal>prepare-agent</goal>
+                    </goals>
+                </execution>
+                <execution>
+                    <id>default-report</id>
+                    <phase>test</phase>
+                    <goals>
+                        <goal>report</goal>
+                    </goals>
+                    <configuration>
+                        <dataFile>${project.build.directory}/jacoco.exec</dataFile>
+                        <outputDirectory>${project.reporting.outputDirectory}/jacoco</outputDirectory>
+                    </configuration>
+                </execution>
+            </executions>
+        </plugin>
+        </plugins>
+    ```
+
+
+
+## Next Steps
+* Learn more about [Quarkus](https://quarkus.io/).
+* Explore other [sample applications](https://cloud.ibm.com/developer/appservice/starter-kits) on IBM Cloud.
+
+## License
+
+This sample application is licensed under the Apache License, Version 2. Separate third-party code objects invoked within this code pattern are licensed by their respective providers pursuant to their own separate licenses. Contributions are subject to the [Developer Certificate of Origin, Version 1.1](https://developercertificate.org/) and the [Apache License, Version 2](https://www.apache.org/licenses/LICENSE-2.0.txt).
+
+[Apache License FAQ](https://www.apache.org/foundation/license-faq.html#WhatDoesItMEAN)
