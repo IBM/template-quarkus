@@ -64,13 +64,15 @@ This Starter Kit Template is based on Quarkus [Bootstrapping the project](https:
 It was bootstrapped with the command:
 
 ```$bash
-mvn io.quarkus:quarkus-maven-plugin:1.11.0.Final:create \
+mvn io.quarkus:quarkus-maven-plugin:1.12.0.Final:create \
     -DprojectGroupId=com.ibm \
     -DprojectArtifactId=template-quarkus \
     -DclassName="com.ibm.GreetingResource" \
     -Dpath="/hello" \
-    -Dextensions="smallrye-openapi, quarkus-resteasy-jsonb"
+    -Dextensions="smallrye-openapi, quarkus-resteasy-jsonb, quarkus-smallrye-opentracing"
 ```
+#### OpenTracing
+OpenTracing support was added automatically with `extensions="quarkus-smallrye-opentracing"` above.
 
 #### OpenAPI and Swagger
 OpenAPI and Swagger support was added automatically with the `extensions="smallrye-openapi"` above.
