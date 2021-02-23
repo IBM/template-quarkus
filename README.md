@@ -64,13 +64,25 @@ This Starter Kit Template is based on Quarkus [Bootstrapping the project](https:
 It was bootstrapped with the command:
 
 ```$bash
-mvn io.quarkus:quarkus-maven-plugin:1.11.0.Final:create \
+mvn io.quarkus:quarkus-maven-plugin:1.12.0.Final:create \
     -DprojectGroupId=com.ibm \
     -DprojectArtifactId=template-quarkus \
     -DclassName="com.ibm.GreetingResource" \
     -Dpath="/hello" \
-    -Dextensions="smallrye-openapi, quarkus-resteasy-jsonb"
+    -Dextensions="smallrye-openapi, quarkus-resteasy-jsonb, quarkus-smallrye-opentracing"
 ```
+#### OpenTracing
+OpenTracing support was added automatically with `extensions="quarkus-smallrye-opentracing"` above.
+
+Added properties to `src/main/resources/application.properties` file to configure tracing.
+* `quarkus.jaeger.service-name` define the name of the service tracing is collected for. Update this name for your service.
+* `quarkus.jaeger.sampler-type` use a constant sampling strategy.
+* `quarkus.jaeger.sampler-param` sample all requests
+* `quarkus.log.console.format` add trace IDs to the log messages. 
+
+These properties can be set via environment variables instead.
+
+Added Logger to `GreetingResource.java` to illustrate log messages with trace IDs.
 
 #### OpenAPI and Swagger
 OpenAPI and Swagger support was added automatically with the `extensions="smallrye-openapi"` above.
