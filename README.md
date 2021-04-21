@@ -1,17 +1,11 @@
 <p align="center">
-    <a href="https://cloud.ibm.com">
-        <img src="https://landscape.cncf.io/logos/ibm-cloud-kcsp.svg" height="100" alt="IBM Cloud">
+    <a href="https://cloudnativetoolkit.dev">
+        <img src="https://cloudnativetoolkit.dev/static/catalyst-0819c47b678df4dd3790a4e78bf73608.svg" height="100" alt="Cloud-native Toolkit">
     </a>
 </p>
 
 <p align="center">
-    <a href="https://cloud.ibm.com">
-    <img src="https://img.shields.io/badge/IBM%20Cloud-powered-blue.svg" alt="IBM Cloud">
-    </a>
-    <a href="https://www.ibm.com/developerworks/learn/java/">
-    <img src="https://img.shields.io/badge/platform-java-lightgrey.svg?style=flat" alt="platform">
-    </a>
-    <img src="https://img.shields.io/badge/license-Apache2-blue.svg?style=flat" alt="Apache 2">
+This template can be used as a starter kit for the <a href="https://cloudnativetoolkit.dev">Cloud-native toolkit</a>
 </p>
 
 
@@ -42,6 +36,12 @@ igc pipeline -n dev --tekton --pipeline ibm-java-maven
 ```
 
 See the **Deploy an app** guide in the [IBM Cloud-Native toolkit](https://cloudnativetoolkit.dev/) for details.
+
+### Native or JVM
+
+Quarkus can be complied to run in a JVM or to run as a native executable. This template provides support for both models. 
+The Cloud-native toolkit utilizes the `Dockerfile` to build the application. The `Dockerfile` in the template will build a native quarkus application.  If you prefer to build the application to run in a JVM replace the current `Dockerfile` with the `Dockerfile.jvm` file provided by this template.  
+
 
 ### Building Locally
 
