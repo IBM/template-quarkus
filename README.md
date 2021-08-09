@@ -27,7 +27,7 @@ to you development cluster. If you are using OpenShift make sure you have logged
 
 Install the IBM Garage for Cloud CLI.
 ```$bash
-npm i -g @garage-catalyst/ibm-garage-cloud-cli
+npm i -g @ibmgaragecloud/cloud-native-toolkit-cli
 ```
 
 Use the IBM Garage for Cloud CLI to register the GIT Repo 
