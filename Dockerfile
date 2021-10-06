@@ -13,6 +13,15 @@ FROM registry.access.redhat.com/ubi8/ubi-minimal:8.4
 WORKDIR /work/
 COPY --from=build /usr/src/app/target/*-runner /work/application
 
+COPY licenses /licenses
+
+LABEL name="ibm/template-quarkus" \
+      vendor="IBM" \
+      version="1" \
+      release="20211005.01" \
+      summary="This is an example of a container image." \
+      description="This container image will deploy a Quarkus App"
+
 # set up permissions for user `1001`
 RUN chmod 775 /work /work/application \
   && chown -R 1001 /work \
