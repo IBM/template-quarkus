@@ -47,4 +47,4 @@ partOf: ""
 
 connectsTo: ""
 
-runtime: spring
+runtime: quarkus
